@@ -2,61 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>html to pdf generator with preview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML to PDF Fun Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap" rel="stylesheet" />
     <style>
-        /* General Styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         body {
             font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
             background-color: #f3f3f3;
+            margin: 0;
+            min-height: 100vh;
+            padding: 20px;
         }
         h1 {
             font-family: 'Pacifico', cursive;
-            font-size: 2.5em;
+            font-size: 3em;
             color: #8e76eb;
-            margin-bottom: 20px;
             text-transform: lowercase;
+            margin-bottom: 20px;
+            text-align: center;
         }
         .container {
-            width: 90%;
-            max-width: 1200px;
-            background-color: #FFFFFF;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-            border: 2px solid #8e76eb;
-            box-sizing: border-box;
-        }
-        .content-wrapper {
             display: flex;
             gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
+            max-width: 1300px;
             width: 100%;
-            box-sizing: border-box;
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #8e76eb;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .textarea-container {
+        .left-side {
+            width: 35%;
             display: flex;
             flex-direction: column;
-            flex: 1;
-            max-width: 500px;
-            min-width: 300px;
+            gap: 15px;
+        }
+        .textarea-container {
             padding: 15px;
             border-radius: 12px;
             background-color: #f3f3ff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border: 1px solid #8e76eb;
-            box-sizing: border-box;
         }
         .textarea-container label {
             color: #8e76eb;
@@ -65,7 +60,7 @@
         }
         .textarea-container textarea {
             width: 100%;
-            height: 200px;
+            height: 300px;
             padding: 10px;
             border-radius: 8px;
             border: 1px solid #DDD;
@@ -73,17 +68,13 @@
             resize: none;
             font-size: 14px;
             color: #333;
-            box-sizing: border-box;
         }
-        /* Preview Styling */
-        .preview {
-            flex: 1;
-            max-width: 500px;
-            min-width: 300px;
-            height: 300px;
-            border: 1px solid #8e76eb;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #8e76eb;
+            font-family: 'Pacifico', cursive;
+            line-height: 1;
         }
         button {
             background: linear-gradient(135deg, #6c5cb7, #8e76eb);
@@ -95,22 +86,46 @@
             font-size: 16px;
             border-radius: 30px;
             cursor: pointer;
-            align-self: center;
-            margin-top: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            align-self: center;
+            margin-top: 15px;
         }
         button:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
-        .footer {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #8e76eb;
-            font-family: 'Pacifico', cursive;
-            line-height: 1;
+        /* Preview Container */
+        .preview-container {
+            width: 65%;
+            padding: 15px;
+            border-radius: 12px;
+            background-color: #e8e8ff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #8e76eb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: auto;
+            height: auto;
+        }
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            .container {
+                flex-direction: column;
+            }
+            .left-side, .preview-container {
+                width: 100%;
+            }
+            .textarea-container textarea {
+                height: 200px;
+            }
+            button {
+                width: 100%;
+            }
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -119,45 +134,46 @@
 <body>
     <h1>html to pdf fun generator</h1>
     <div class="container">
-        <div class="content-wrapper">
-            <!-- Input Area -->
+        <!-- Left Side for Input and Footer -->
+        <div class="left-side">
             <div class="textarea-container">
                 <label for="htmlInput">Paste your HTML code here:</label>
                 <textarea id="htmlInput" oninput="updatePreview()"></textarea>
                 <button onclick="generatePDF()">✨ Generate PDF ✨</button>
             </div>
-
-            <!-- Preview Area as an iframe -->
-            <iframe class="preview" id="preview"></iframe>
+            <div class="footer">
+                <p>by yours truly,</p>
+                <p>Sanduni Yureka</p>
+            </div>
         </div>
 
-        <!-- Cute Footer Text inside container, below preview area -->
-        <div class="footer">
-            <p>by yours truly,</p>
-            <p>Sanduni Yureka</p>
+        <!-- Right Side for Preview -->
+        <div class="preview-container">
+            <p>✨ Live preview of your HTML content will appear here ✨</p>
+            <div id="previewContent"></div>
         </div>
     </div>
 
     <script>
-        // Function to update the iframe preview
+        // Create shadow DOM in the preview container to isolate styles
+        const previewContainer = document.getElementById("previewContent");
+        const shadowRoot = previewContainer.attachShadow({ mode: "open" });
+
+        // Update preview content in shadow DOM to isolate CSS and HTML
         function updatePreview() {
             const htmlContent = document.getElementById("htmlInput").value;
-            const iframe = document.getElementById("preview").contentWindow.document;
-            iframe.open();
-            iframe.write(htmlContent);
-            iframe.close();
+            shadowRoot.innerHTML = htmlContent;
         }
 
-        // Function to generate PDF from the iframe content
+        // Generate PDF using the shadow DOM content
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF("p", "mm", "a4");
 
-            // Get the preview content from iframe
-            const iframe = document.getElementById("preview");
-            html2canvas(iframe.contentWindow.document.body, { scale: 2 }).then((canvas) => {
+            html2canvas(previewContainer.shadowRoot.host, { scale: 2 }).then((canvas) => {
                 const imgData = canvas.toDataURL("image/png");
-                const imgWidth = 210;
+                const imgWidth = 210; // PDF width in mm
+                const pageHeight = 297; // PDF height in mm
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
                 pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
