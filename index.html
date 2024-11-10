@@ -2,90 +2,177 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HTML to PDF Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Singlet&display=swap" rel="stylesheet" />
+    <title>html to pdf generator with preview</title>
+    <!-- Using the same fonts for consistency -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap" rel="stylesheet" />
     <style>
+        /* General Styling */
         body {
-            font-family: "Singlet", sans-serif;
+            font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #f3f3f3;
+            background-color: #f3f3f3; /* Original background color */
         }
         h1 {
-            color: #8e76eb;
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5em;
+            color: #8e76eb; /* Original purple color */
+            margin-bottom: 20px;
+            text-transform: lowercase; /* Make title all lowercase */
         }
         .container {
-            width: 80%;
-            max-width: 600px;
-            background-color: #fff;
+            width: 90%;
+            max-width: 1200px;
+            background-color: #FFFFFF;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin-bottom: 20px;
+            border: 2px solid #8e76eb; /* Original purple color */
+            box-sizing: border-box;
         }
+        .content-wrapper {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        /* Text Area Styling */
         .textarea-container {
-            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            max-width: 500px;
+            min-width: 300px;
+            padding: 15px;
+            border-radius: 12px;
+            background-color: #f3f3ff; /* Original light purple */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #8e76eb; /* Original purple border */
+            box-sizing: border-box;
         }
-        textarea {
+        .textarea-container label {
+            color: #8e76eb; /* Original purple color */
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .textarea-container textarea {
             width: 100%;
             height: 200px;
             padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            font-family: monospace;
+            border-radius: 8px;
+            border: 1px solid #DDD;
+            font-family: 'Poppins', sans-serif;
+            resize: none;
+            font-size: 14px;
+            color: #333;
+            box-sizing: border-box;
         }
+        /* Preview Styling */
+        .preview {
+            flex: 1;
+            max-width: 500px;
+            min-width: 300px;
+            padding: 15px;
+            border-radius: 12px;
+            background-color: #e8e8ff; /* Original light purple */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-height: 220px;
+            overflow: auto;
+            color: #8e76eb; /* Original purple color */
+            font-size: 14px;
+            border: 1px solid #8e76eb; /* Original purple border */
+            box-sizing: border-box;
+        }
+        /* Button Styling */
         button {
-            background-color: #8e76eb;
+            background: linear-gradient(135deg, #6c5cb7, #8e76eb); /* Gradient with original colors */
             color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 16px;
-            border-radius: 5px;
+            border-radius: 30px; /* Rounded button */
             cursor: pointer;
+            align-self: center;
+            margin-top: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         button:hover {
-            background-color: #6c5cb7;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        /* Cute Footer Text */
+        .footer {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #8e76eb; /* Original purple color */
+            font-family: 'Pacifico', cursive;
+            line-height: 1; /* Reduced line height for closer spacing */
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 <body>
-    <h1>HTML to PDF Generator</h1>
+    <h1>html to pdf fun generator</h1>
     <div class="container">
-        <div class="textarea-container">
-            <label for="htmlInput">Paste your HTML code below:</label>
-            <textarea id="htmlInput"></textarea>
+        <div class="content-wrapper">
+            <!-- Input Area -->
+            <div class="textarea-container">
+                <label for="htmlInput">Paste your HTML code here:</label>
+                <textarea id="htmlInput" oninput="updatePreview()"></textarea>
+                <button onclick="generatePDF()">✨ Generate PDF ✨</button>
+            </div>
+
+            <!-- Preview Area -->
+            <div class="preview" id="preview">
+                <p>✨ Live preview of your HTML content will appear here ✨</p>
+            </div>
         </div>
-        <button onclick="generatePDF()">Generate PDF</button>
+
+        <!-- Cute Footer Text inside container, below preview area -->
+        <div class="footer">
+            <p>by yours truly,</p>
+            <p>Sanduni Yureka</p>
+        </div>
     </div>
 
     <script>
+        // Function to update the live preview section
+        function updatePreview() {
+            const htmlContent = document.getElementById("htmlInput").value;
+            document.getElementById("preview").innerHTML = htmlContent;
+        }
+
+        // Function to generate PDF from the preview content
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF("p", "mm", "a4");
 
-            // Create a container for rendering HTML content
-            const htmlContainer = document.createElement("div");
-            htmlContainer.innerHTML = document.getElementById("htmlInput").value;
-            htmlContainer.style.width = "210mm"; // Set to A4 width for proper scaling
+            // Get the preview content
+            const previewContent = document.getElementById("preview");
 
-            document.body.appendChild(htmlContainer); // Temporarily add to document for rendering
-
-            // Capture the content as an image
-            html2canvas(htmlContainer, { scale: 2 }).then((canvas) => {
+            // Capture the preview content as an image
+            html2canvas(previewContent, { scale: 2 }).then((canvas) => {
                 const imgData = canvas.toDataURL("image/png");
                 const imgWidth = 210; // A4 width in mm
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
                 pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
                 pdf.save("generated.pdf");
-
-                document.body.removeChild(htmlContainer); // Clean up after rendering
             });
         }
     </script>
