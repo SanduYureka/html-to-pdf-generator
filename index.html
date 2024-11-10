@@ -57,6 +57,8 @@
             color: #8e76eb;
             font-weight: bold;
             margin-bottom: 5px;
+            text-align: center; /* Center-align the label text */
+            display: block; /* Ensures it takes up full width */
         }
         .textarea-container textarea {
             width: 100%;
@@ -88,8 +90,8 @@
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            align-self: center;
-            margin-top: 15px;
+            margin: 15px auto 0 auto; /* Centers the button horizontally */
+            display: block; /* Ensure the button is treated as a block element */
         }
         button:hover {
             transform: scale(1.05);
@@ -137,7 +139,7 @@
         <!-- Left Side for Input and Footer -->
         <div class="left-side">
             <div class="textarea-container">
-                <label for="htmlInput">Paste your HTML code here:</label>
+                <label for="htmlInput">Paste your HTML code here</label>
                 <textarea id="htmlInput" oninput="updatePreview()"></textarea>
                 <button onclick="generatePDF()">✨ Generate PDF ✨</button>
             </div>
