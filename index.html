@@ -11,24 +11,62 @@
             margin: 0;
             padding: 0;
         }
+
+        /* Background Gradient Animation */
         body {
             font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f3f3f3;
             margin: 0;
             min-height: 100vh;
             padding: 20px;
+            overflow-y: auto; /* Allow vertical scrolling */
+            position: relative;
+            background: linear-gradient(135deg, #604fb1, #baaff3, #e7e7fe, #c3c5f5, #baaff3, #604fb1);
+            background-size: 200% 200%;
+            animation: backgroundWave 8s linear infinite;
         }
+
+        /* Heading with seamless gradient animation */
         h1 {
             font-family: 'Pacifico', cursive;
             font-size: 3em;
-            color: #8e76eb;
             text-transform: lowercase;
             margin-bottom: 20px;
             text-align: center;
+            z-index: 1;
+            background: linear-gradient(90deg, #604fb1, #baaff3, #604fb1);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: textWave 5s linear infinite;
         }
+
+        /* Continuous Background Animation */
+        @keyframes backgroundWave {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Seamless Text Gradient Animation */
+        @keyframes textWave {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        /* Container */
         .container {
             display: flex;
             gap: 20px;
@@ -37,29 +75,34 @@
             background-color: #FFFFFF;
             border-radius: 15px;
             padding: 20px;
-            border: 2px solid #8e76eb;
+            border: 2px solid #604fb1;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
         }
+
         .left-side {
             width: 35%;
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
+
         .textarea-container {
             padding: 15px;
             border-radius: 12px;
             background-color: #f3f3ff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border: 1px solid #8e76eb;
+            border: 1px solid #604fb1;
         }
+
         .textarea-container label {
-            color: #8e76eb;
+            color: #604fb1;
             font-weight: bold;
             margin-bottom: 5px;
-            text-align: center; /* Center-align the label text */
-            display: block; /* Ensures it takes up full width */
+            text-align: center;
+            display: block;
         }
+
         .textarea-container textarea {
             width: 100%;
             height: 300px;
@@ -71,15 +114,18 @@
             font-size: 14px;
             color: #333;
         }
+
         .footer {
             text-align: center;
             font-size: 0.9em;
-            color: #8e76eb;
+            color: #604fb1;
             font-family: 'Pacifico', cursive;
             line-height: 1;
         }
+
+        /* Button */
         button {
-            background: linear-gradient(135deg, #6c5cb7, #8e76eb);
+            background: linear-gradient(135deg, #847aba, #604fb1);
             color: #fff;
             font-family: 'Poppins', sans-serif;
             font-weight: bold;
@@ -90,13 +136,15 @@
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            margin: 15px auto 0 auto; /* Centers the button horizontally */
-            display: block; /* Ensure the button is treated as a block element */
+            margin: 15px auto 0 auto;
+            display: block;
         }
+
         button:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
+
         /* Preview Container */
         .preview-container {
             width: 65%;
@@ -104,13 +152,14 @@
             border-radius: 12px;
             background-color: #e8e8ff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border: 1px solid #8e76eb;
+            border: 1px solid #604fb1;
             display: flex;
             flex-direction: column;
             align-items: center;
             overflow: auto;
             height: auto;
         }
+
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             h1 {
